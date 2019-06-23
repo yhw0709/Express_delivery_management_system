@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/static/admin/layui/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/admin.css"/>
+</head>
+<body>
+<div style="margin-top: 40px">
+    <span style="margin-left: 5%;">按收件人姓名查找</span>
+</div>
+<hr class="layui-bg-blue">
+<div class="layui-form" id="table-list">
+    <table class="layui-table" lay-even lay-skin="nob">
+        <colgroup>
+            <col width="50">
+            <col class="hidden-xs" width="50">
+            <col class="hidden-xs" width="100">
+            <col width="100">
+            <col class="hidden-xs" width="100">
+            <col width="80">
+            <col width="150">
+        </colgroup>
+        <thead>
+        <tr>
+            <th class="hidden-xs">ID</th>
+            <th class="hidden-xs">寄件人</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td class="hidden-xs">{{ user.user_id }}</td>
+                <td class="hidden-xs">{{ user.username }}</td>
+                <td>
+                    <div class="layui-inline">
+                        <a class="layui-btn layui-btn-mini layui-btn-normal" data-id="1"
+                                href="{% url 'ruler:user_detail' user.id%}"><i class="layui-icon">&#xe642;</i></a>
+                        <a class="layui-btn layui-btn-mini layui-btn-danger" onclick="user_del({{ user.id }})"><i class="layui-icon">&#xe640;</i></a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="page-wrap">
+        <ul class="pagination">
+            <li class="disabled"><span>«</span></li>
+            <li class="active"><span>1</span></li>
+            <li>
+                <a href="#">2</a>
+            </li>
+            <li>
+                <a href="#">»</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<script src="/static/js/jquery/jquery-3.3.1.js"></script>
+<script src="/static/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
+{% csrf_token %}
+<script>
+    function user_del(id) {
+        var csrf = $('input[name = "csrfmiddlewaretoken"]').val()
+        $.ajax({
+            url: '/ruler/user_del/' + id + '/',
+            type: 'POST',
+            dataType: 'json',
+            headers: {'X-CSRFToken': csrf},
+            success: function (data) {
+                if (data.code == '200'){
+                    window.location.reload()
+                }
+            },
+            error: function (data) {
+                alert('请求失败')
+            }
+        })
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="container" style="height: 400px; min-width: 310px"></div>
+<script type="text/javascript" src="/static/js/echarts.min.js"></script>
+<script src="/static/js/jquery.min.js"></script>
+<script type="text/javascript">
+    $.getJSON('/ruler/get_echarts', function (data) {
+        var courier_num = data.courier_num;
+        var user_num = data.user_num;
+        var area = data.area;
+        var area_count = data.area_count;
+        option = {
+            title: {
+                text: '系统信息分析',
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: ['快递员', '普通用户', '货物数量']
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    mark: {show: true},
+                    dataView: {show: true, readOnly: false},
+                    magicType: {show: true, type: ['line', 'bar']},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            calculable: true,
+            xAxis: [
+                {
+                    type: 'category',
+                    data: area
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    name: '快递员数量',
+                    type: 'bar',
+                    data: courier_num,
+                },
+                {
+                    name: '普通用户数量',
+                    type: 'bar',
+                    data: user_num,
+                },
+                {
+                    name: '快递数量',
+                    type: 'bar',
+                    data: area_count,
+                    markPoint: {
+                        data: [
+                            {type: 'max', name: '最大值'},
+                            {type: 'min', name: '最小值'}
+                        ]
+                    },
+                    markLine: {
+                        data: [
+                            {type: 'average', name: '平均值'}
+                        ]
+                    }
+                }
+            ]
+        };
+
+        //初始化echarts实例
+        var myChart = echarts.init(document.getElementById('container'));
+
+        //使用制定的配置项和数据显示图表
+        myChart.setOption(option);
+    });
+</script>
+</body>
+</html>

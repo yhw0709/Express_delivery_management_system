@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>职员信息修改页</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+</head>
+<body>
+
+<div class="layui-form-item" style="margin-top: 10px; margin-left: 5%;">
+    <form class="layui-form" action="" method="post" id="empForm">
+        {% csrf_token %}
+        <div style="margin-top: 40px">
+            <span>地址信息</span>
+        </div>
+        <hr class="layui-bg-blue">
+        <div class="layui-form-item">
+            <label class="layui-form-label">省份</label>
+            <div class="layui-input-inline">
+                <span>{{ user_address.province }}</span>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">城市</label>
+            <div class="layui-input-inline">
+                <span class="layui-input">{{ user_address.city }}</span>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">区域</label>
+            <div class="layui-input-inline">
+                <span class="layui-input">{{ user_address.district }}</span>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">详细地址</label>
+            <div class="layui-input-inline" style="width: 514px">
+                <span class="layui-input">{{ user_address.address }}</span>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-inline">
+                <span class="layui-input">{{ user_address.user_name }}</span>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">电话</label>
+            <div class="layui-input-inline">
+                <span class="layui-input">{{ user_address.user_mobile }}</span>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <a href="javascript:history.go(-1)" class="layui-btn layui-btn-primary">返回</a>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

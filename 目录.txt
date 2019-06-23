@@ -1,0 +1,10 @@
+Express_delivery_management_system/Express_delivery_management_system   项目配置文件目录，包含设置和一级路由
+Express_delivery_management_system/courier   快递员功能模块，包含模型、视图和二级路由等
+Express_delivery_management_system/goods   货物功能模块，包含货物模型、视图和二级路由等
+Express_delivery_management_system/home   home功能模块，包含视图和二级路由等
+Express_delivery_management_system/order   订单功能模块，包含订单模型、视图和二级路由等
+Express_delivery_management_system/ruler   管理功能模块，包含管理员模型、视图和二级路由等
+Express_delivery_management_system/static    静态文件存放目录
+Express_delivery_management_system/templates    模板模块，存放HTML文件
+Express_delivery_management_system/user   用户功能模块，包含用户模型、视图和二级路由等
+Express_delivery_management_system/utils   自定义功能集，包含装饰器等

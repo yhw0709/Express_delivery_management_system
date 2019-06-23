@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>司机信息详情页</title>
+    <link rel="stylesheet" type="text/css" href="/static/admin/layui/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/admin.css"/>
+</head>
+<body>
+<div>
+    <div style="margin-top: 40px">
+        <span style="margin-left: 5%;">按收件人姓名查找</span>
+    </div>
+    <hr class="layui-bg-blue">
+    <form method="get" action="{% url 'ruler:user_order_search' %}">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="senderName" autocomplete="off" class="layui-input"
+                       placeholder="{{ signer_name }}">
+            </div>
+            <div style="float: left;">
+                <button type="submit" class="layui-btn layui-btn-radius layui-btn-normal">查询</button>
+            </div>
+        </div>
+    </form>
+    <hr class="layui-bg-blue">
+    <div class="layui-form" id="table-list">
+        <table class="layui-table" lay-even lay-skin="nob">
+            <colgroup>
+                <col width="50">
+                <col class="hidden-xs" width="50">
+                <col class="hidden-xs" width="100">
+                <col width="100">
+                <col class="hidden-xs" width="100">
+                <col width="80">
+                <col width="150">
+            </colgroup>
+            <thead>
+            <tr>
+                <th class="hidden-xs">ID</th>
+                <th class="hidden-xs">寄件人</th>
+                <th>收件人</th>
+                <th>发布时间</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td class="hidden-xs">{{ order.id }}</td>
+                    <td class="hidden-xs">{{ order.user.username }}</td>
+                    <td>{{ order.signer.signer_name }}</td>
+                    <td>{{ order.add_time }}</td>
+                    <td>
+                        {% if order.courier_id %}
+                            已接/{{ order.courier.username }}
+                        {% else %}
+                            未接
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="layui-inline">
+                            <a class="layui-btn layui-btn-mini layui-btn-danger" onclick="order_delete({{ order.id }})"><i class="layui-icon">&#xe640;</i></a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="page-wrap">
+            <ul class="pagination">
+                <li class="disabled"><span>«</span></li>
+                <li class="active"><span>1</span></li>
+                <li>
+                    <a href="#">2</a>
+                </li>
+                <li>
+                    <a href="#">»</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+<script src="/static/js/jquery/jquery-3.3.1.js"></script>
+<script src="/static/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
+{% csrf_token %}
+<script>
+    function order_delete(id) {
+        var csrf = $('input[name = "csrfmiddlewaretoken"]').val()
+        $.ajax({
+            url: '/user/order_del/' + id + '/',
+            type: 'POST',
+            dataType: 'json',
+            headers: {'X-CSRFToken': csrf},
+            success: function (data) {
+                if (data.code == '200') {
+                    alert('删除成功')
+                    window.location.reload()
+                }
+
+            },
+            error: function (data) {
+                alert('请求失败')
+            }
+        })
+    }
+
+    layui.use(['form', 'jquery', 'layer', 'dialog'], function () {
+        var $ = layui.jquery;
+
+        //修改状态
+        $('#table-list').on('click', '.table-list-status', function () {
+            var That = $(this);
+            var status = That.attr('data-status');
+            var id = That.parent().attr('data-id');
+            if (status == 1) {
+                That.removeClass('layui-btn-normal').addClass('layui-btn-warm').html('隐藏').attr('data-status', 2);
+            } else if (status == 2) {
+                That.removeClass('layui-btn-warm').addClass('layui-btn-normal').html('显示').attr('data-status', 1);
+
+            }
+        })
+        //列表删除
+    });
+</script>
+{#{% csrf_token %}#}
+{#<script type="text/javascript">#}
+{#    function search_by_signerName() {#}
+{#        alert('请求')#}
+{#        var signername = $('#signerName').val()#}
+{#        var csrf = $('input[name="csrfmiddlewaretoken"]').val()#}
+{#        $.ajax({#}
+{#            url: '/user/user_order_search',#}
+{#            type: 'POST',#}
+{#            dataType: 'json',#}
+{#            headers: {'X-CSRFToken': csrf},#}
+{#            data: {'signerName': signername},#}
+{#            success: function (data) {#}
+{#location.href = '{% url 'user:user_order_search' %}'#}
+{#            },#}
+{#            error: function () {#}
+{#                alert('失败')#}
+{#            }#}
+{#        });#}
+{#    }#}
+{#</script>#}
+
+</body>
+</html>

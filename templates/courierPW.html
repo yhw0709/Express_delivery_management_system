@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>职员信息修改页</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+</head>
+<body>
+{% if msg %}
+    <script type="text/javascript">
+        console.log('{{ msg }}');
+        alert('{{ msg }}')
+    </script>
+{% endif %}
+{% if form %}
+    <script type="text/javascript">
+        alert('{{ form }}')
+    </script>
+{% endif %}
+<div class="layui-form-item" style="margin-top: 10px">
+    <form class="layui-form" action="" id="empForm" method="post">
+        {% csrf_token %}
+        <div class="layui-form-item">
+            <label class="layui-form-label">原密码</label>
+            <div class="layui-input-inline">
+                <input type="password" name="old_pw" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">新密码</label>
+            <div class="layui-input-inline">
+                <input type="password" name="new_pw" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">确认密码</label>
+            <div class="layui-input-inline">
+                <input type="password" name="com_new_pw" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn layui-btn-radius layui-btn-normal">立即修改</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

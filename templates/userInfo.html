@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>职员信息修改页</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+</head>
+<body>
+
+<div class="layui-form-item" style="margin-top: 10px; margin-left: 5%;">
+    <form class="layui-form" action="" method="post" id="empForm">
+        {% csrf_token %}
+        <div style="margin-top: 40px">
+            <span>地址信息</span>
+        </div>
+        <hr class="layui-bg-blue">
+        <div class="layui-form-item">
+            <label class="layui-form-label">省份</label>
+            <div class="layui-input-inline">
+                <input type="text" name="province" class="layui-input" value="{{ user_address.province }}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">城市</label>
+            <div class="layui-input-inline">
+                <input type="text" name="city" class="layui-input" value="{{ user_address.city }}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">区域</label>
+            <div class="layui-input-inline">
+                <input type="text" name="district" class="layui-input" value="{{ user_address.district }}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">详细地址</label>
+            <div class="layui-input-inline" style="width: 514px">
+                <input type="text" name="address" autocomplete="off" class="layui-input" value="{{ user_address.address }}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">姓名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="userName" required class="layui-input" value="{{ user_address.user_name }}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">电话</label>
+            <div class="layui-input-inline">
+                <input type="text" name="userMobile" required class="layui-input" value="{{ user_address.user_mobile }}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn layui-btn-radius layui-btn-normal" >立即修改</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

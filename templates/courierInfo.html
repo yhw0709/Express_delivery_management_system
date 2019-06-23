@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>职员信息修改页</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+</head>
+<body>
+
+<div class="layui-form-item" style="margin-top: 10px; margin-left: 5%;">
+    <form class="layui-form" action="" method="post" id="empForm">
+        {% csrf_token %}
+        <div style="margin-top: 40px">
+            <span>地址信息</span>
+        </div>
+        <hr class="layui-bg-blue">
+        <div class="layui-form-item">
+            <label class="layui-form-label">电话</label>
+            <div class="layui-input-inline">
+                <input type="text" name="tel" class="layui-input" value="{{ courier.tel }}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">邮箱</label>
+            <div class="layui-input-inline">
+                <input type="text" name="mail" class="layui-input" value="{{ courier.mail }}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">真实姓名</label>
+            <div class="layui-input-inline">
+                <input type="text" name="real_name" class="layui-input" value="{{ courier_reality.real_name }}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-inline">
+                <input type="text" name="gender" required class="layui-input" value="{{ courier_reality.gender }}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">身份证号</label>
+            <div class="layui-input-inline" style="width: 414px">
+                <input type="text" name="id_card" required class="layui-input" value="{{ courier_reality.id_card }}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">民族</label>
+            <div class="layui-input-inline">
+                <input type="text" name="nationality" required class="layui-input" value="{{ courier_reality.nationality }}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn layui-btn-radius layui-btn-normal" >立即修改</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+     $(document).ready(function () {
+        alert('1')
+        $.getJSON('/user/get_echarts', function (data) {
+            alert('2')
+            var signers = data.singers;
+            var goods_nums = data.goods_nums;
+            console.log(signers);
+            console.log(goods_nums);
+            option = {
+                title: {
+                    text: '用户-快递数量表',
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['快递数量']
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        mark: {show: true},
+                        dataView: {show: true, readOnly: false},
+                        magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                        restore: {show: true},
+                        saveAsImage: {show: true}
+                    }
+                },
+                calculable: true,
+                xAxis: [
+                    {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: signers
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value'
+                    }
+                ],
+                series: [
+                    {
+                        name: '快递数量',
+                        type: 'line',
+                        smooth: true,
+                        itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                        data: goods_nums
+                    },
+                ]
+            };
+            //初始化echarts实例
+            var myChart = echarts.init(document.getElementById('container'));
+
+            //使用制定的配置项和数据显示图表
+            myChart.setOption(option);
+        });
+    });
+</script>
+</body>
+</html>
